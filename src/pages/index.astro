@@ -3,7 +3,7 @@ import '@/styles/globals.css';
 import { Button } from '@/components/ui/button';
 import { Image } from 'astro:assets';
 
-import logo from '@/assets/logo.png';
+import logo from '@/assets/logo.svg';
 ---
 
 <!doctype html>
@@ -12,6 +12,7 @@ import logo from '@/assets/logo.png';
 		<meta charset='UTF-8' />
 		<meta name='description' content='Astro description' />
 		<meta name='viewport' content='width=device-width' />
+		<meta name='robots' content='noindex, nofollow' />
 		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 		<meta name='generator' content={Astro.generator} />
 		<title>iPhone 15 Pro - Apple+</title>
@@ -25,3 +26,18 @@ import logo from '@/assets/logo.png';
 		<main></main>
 	</body>
 </html>
+
+<style lang='scss'>
+	* {
+		padding: 0;
+		margin: 0;
+	}
+
+	nav {
+		.logo {
+			img {
+				height: 200%;
+			}
+		}
+	}
+</style>
