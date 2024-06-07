@@ -1,0 +1,46 @@
+---
+import '@/styles/globals.css';
+import { Image } from 'astro:assets';
+import logo from '@/assets/logo.svg';
+---
+
+<a class='logo' href='/'>
+	<Image src={logo} alt='Apple' />
+</a>
+
+<style lang='scss'>
+	.logo {
+		cursor: pointer;
+		position: relative;
+		bottom: 2px;
+		height: 24px;
+		width: 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0.85;
+		transition: var(--transition);
+		font-size: 0;
+
+		&::before {
+			content: '+';
+			position: absolute;
+			margin: 0;
+			height: 5px;
+			width: 5px;
+			top: 0;
+			left: 22px;
+			font-weight: 900;
+		}
+
+		&:hover {
+			opacity: 1;
+		}
+
+		img {
+			filter: invert(88%) sepia(20%) saturate(157%) hue-rotate(204deg) brightness(102%) contrast(98%);
+			height: 24px;
+			width: 24px;
+		}
+	}
+</style>

@@ -1,9 +1,12 @@
 ---
 import '@/styles/globals.css';
-import { Button } from '@/components/ui/button';
-import { Image } from 'astro:assets';
 
-import logo from '@/assets/logo.svg';
+import { Button, buttonVariants } from '@/components/ui/button';
+import ButtonLink from '@/components/ui/ButtonLink.astro';
+
+import Logo from '@/components/Logo.astro';
+
+import { Image } from 'astro:assets';
 ---
 
 <!doctype html>
@@ -19,24 +22,79 @@ import logo from '@/assets/logo.svg';
 	</head>
 	<body>
 		<nav>
-			<div class='logo'>
-				<Image src={logo} alt='Apple' />
+			<div class='nav-ctn'>
+				<div class='nav-start'>
+					<div class='nav-start-wr'>
+						<Logo />
+					</div>
+				</div>
+				<div class='nav-middle'>
+					<div class='nav-middle-wr'>
+						<ButtonLink variant={'ghost'} href='/'>iPhone 15 Pro</ButtonLink>
+					</div>
+				</div>
+				<div class='nav-end'>
+					<div class='nav-end-wr'>
+						<ButtonLink variant={'ghost'} href='https://www.apple.com/uk/shop/buy-iphone/iphone-15-pro'>Buy Now</ButtonLink>
+					</div>
+				</div>
 			</div>
 		</nav>
-		<main></main>
+		<main>
+			<div class='front h-screen'>
+				<div class='title mt-[15vh] flex flex-col text-center'>
+					<h5 class='opacity-80'>The new iPhone 15 Pro</h5>
+					<h1 class=''>Titanium. Meh.</h1>
+				</div>
+			</div>
+		</main>
 	</body>
 </html>
 
-<style lang='scss'>
+<style lang='scss' is:global>
 	* {
 		padding: 0;
 		margin: 0;
 	}
 
 	nav {
-		.logo {
-			img {
-				height: 200%;
+		top: 0;
+		position: sticky;
+		height: 50px;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		border-bottom: 1px solid var(--border);
+		backdrop-filter: blur(6px);
+		width: 100%;
+		z-index: 100;
+
+		.nav-ctn {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			width: 45%;
+			height: 100%;
+			align-content: center;
+			justify-content: space-around;
+			gap: 8rem;
+
+			.nav-start,
+			.nav-start ~ * {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				max-width: 120px;
+				min-width: 120px;
+
+				.nav-start-wr,
+				.nav-start-wr ~ * {
+					margin: 0 auto;
+				}
+			}
+
+			.nav-end {
+				flex: 1 1;
 			}
 		}
 	}
