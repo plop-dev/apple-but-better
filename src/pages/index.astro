@@ -21,7 +21,7 @@ import { Image } from 'astro:assets';
 		<title>iPhone 15 Pro - Apple+</title>
 	</head>
 	<body>
-		<nav>
+		<nav class='border-b border-border/20 bg-background/65'>
 			<div class='nav-ctn'>
 				<div class='nav-start'>
 					<div class='nav-start-wr'>
@@ -42,7 +42,7 @@ import { Image } from 'astro:assets';
 		</nav>
 		<main>
 			<div class='front h-screen'>
-				<div class='title mt-[15vh] flex flex-col text-center'>
+				<div class='title mt-[5vh] flex flex-col text-center'>
 					<h5 class='opacity-80'>The new iPhone 15 Pro</h5>
 					<h1 class=''>Titanium. Meh.</h1>
 				</div>
@@ -51,10 +51,95 @@ import { Image } from 'astro:assets';
 	</body>
 </html>
 
+<script>
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import * as THREE from 'three';
+	import WebGL from 'three/addons/capabilities/WebGL.js';
+	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+	import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+	gsap.registerPlugin(ScrollTrigger);
+	const scene = new THREE.Scene();
+	const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+
+	const renderer = new THREE.WebGLRenderer();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	const ca = document.body.appendChild(renderer.domElement);
+	ca.setAttribute('data-id', 'hero');
+
+	const loader = new GLTFLoader();
+
+	loader.load(
+		'/models/iphone-showcase.glb',
+		function (gltf) {
+			const gltfScene = gltf.scene;
+			gltfScene.position.z += 1;
+			window.addEventListener('mousemove', event => {
+				const xPos = event.clientX / innerWidth - 0.5;
+				const yPos = event.clientY / innerHeight - 0.5;
+
+				gsap.to(gltfScene.rotation, {
+					z: xPos * -1,
+					x: -yPos * -1,
+					ease: 'power4.out',
+				});
+			});
+
+			const maxAnisotropy = renderer.capabilities.getMaxAnisotropy();
+			gltfScene.traverse((object: any) => {
+				if (object.isMesh === true && object.material.map !== null) {
+					object.material.map.anisotropy = maxAnisotropy;
+				}
+			});
+
+			scene.add(gltfScene);
+		},
+		() => {
+			null;
+		},
+		function (error) {
+			console.error(error);
+		},
+	);
+
+	const light = new THREE.PointLight(); // soft white light
+	light.intensity = 15;
+	light.position.set(-5, 5, -5);
+	const lightH = new THREE.PointLightHelper(light);
+	scene.add(light, lightH);
+
+	camera.position.set(0, 5, 0);
+	camera.lookAt(0, 0, 0);
+
+	// const hlp = new THREE.AxesHelper(1);
+	// scene.add(hlp);
+
+	window.addEventListener('resize', event => {
+		camera.aspect = innerWidth / innerHeight;
+		camera.updateProjectionMatrix();
+		renderer.setSize(innerWidth, innerHeight);
+	});
+	function animate() {
+		renderer.render(scene, camera);
+	}
+
+	if (WebGL.isWebGLAvailable()) {
+		renderer.setAnimationLoop(animate);
+	} else {
+		const warning = WebGL.getWebGLErrorMessage();
+		document.getElementById('container')?.appendChild(warning);
+	}
+</script>
+
 <style lang='scss' is:global>
 	* {
 		padding: 0;
 		margin: 0;
+	}
+
+	body {
+		overflow-x: hidden;
 	}
 
 	nav {
@@ -64,7 +149,6 @@ import { Image } from 'astro:assets';
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
-		border-bottom: 1px solid var(--border);
 		backdrop-filter: blur(6px);
 		width: 100%;
 		z-index: 100;
@@ -97,5 +181,12 @@ import { Image } from 'astro:assets';
 				flex: 1 1;
 			}
 		}
+	}
+
+	canvas[data-id='hero'] {
+		top: 0;
+		left: 0;
+		position: absolute;
+		z-index: -1;
 	}
 </style>
