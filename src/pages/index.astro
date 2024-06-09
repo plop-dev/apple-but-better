@@ -30,7 +30,15 @@ import { Image } from 'astro:assets';
 				</div>
 				<div class='nav-middle'>
 					<div class='nav-middle-wr'>
-						<ButtonLink variant={'ghost'} href='/'>iPhone 15 Pro</ButtonLink>
+						<div class='nav-item-wr'>
+							<ButtonLink variant={'ghost'} href='/'>Your crippling bank account</ButtonLink>
+						</div>
+						<div class='nav-item-wr'>
+							<ButtonLink variant={'ghost'} href='/'>iPhone 15 Pro</ButtonLink>
+						</div>
+						<div class='nav-item-wr'>
+							<ButtonLink variant={'ghost'} href='/'>iCloud</ButtonLink>
+						</div>
 					</div>
 				</div>
 				<div class='nav-end'>
@@ -45,6 +53,10 @@ import { Image } from 'astro:assets';
 				<div class='title mt-[5vh] flex flex-col text-center'>
 					<h5 class='opacity-80'>The new iPhone 15 Pro</h5>
 					<h1 class=''>Titanium. Meh.</h1>
+					<div class='price'>
+						<ButtonLink variant={'accent'} href='https://www.apple.com/uk/shop/buy-iphone/iphone-15-pro'>Buy</ButtonLink>
+						<h5 class='font-light'>Literally only half your salary</h5>
+					</div>
 				</div>
 			</div>
 		</main>
@@ -69,19 +81,21 @@ import { Image } from 'astro:assets';
 	ca.setAttribute('data-id', 'hero');
 
 	const loader = new GLTFLoader();
+	// const controls = new OrbitControls(camera, renderer.domElement);
 
 	loader.load(
-		'/models/iphone-showcase.glb',
+		'/models/iphone.glb',
 		function (gltf) {
 			const gltfScene = gltf.scene;
-			gltfScene.position.z += 1;
+			gltf.scene.position.y -= 0.01;
+
 			window.addEventListener('mousemove', event => {
 				const xPos = event.clientX / innerWidth - 0.5;
 				const yPos = event.clientY / innerHeight - 0.5;
 
 				gsap.to(gltfScene.rotation, {
-					z: xPos * -1,
-					x: -yPos * -0.5,
+					y: xPos * 1,
+					x: -yPos * 0.5,
 					ease: 'power4.out',
 				});
 			});
@@ -104,12 +118,14 @@ import { Image } from 'astro:assets';
 	);
 
 	const light = new THREE.PointLight(); // soft white light
-	light.intensity = 20;
-	light.position.set(-5, 5, -5);
-	const lightH = new THREE.PointLightHelper(light);
-	scene.add(light, lightH);
+	light.intensity = 15;
+	light.position.set(0.5, 0.5, 0);
+	// const lightH = new THREE.PointLightHelper(light);
+	scene.add(light);
 
-	camera.position.set(0, 5, 0);
+	scene.background = new THREE.Color('hsl(0, 0%, 7%)');
+
+	camera.position.set(0, 0, -0.2);
 	camera.lookAt(0, 0, 0);
 
 	// const hlp = new THREE.AxesHelper(1);
@@ -122,6 +138,7 @@ import { Image } from 'astro:assets';
 	});
 	function animate() {
 		renderer.render(scene, camera);
+		// controls.update();
 	}
 
 	if (WebGL.isWebGLAvailable()) {
@@ -157,35 +174,66 @@ import { Image } from 'astro:assets';
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;
-			width: 45%;
+			width: 100%;
 			height: 100%;
 			align-content: center;
-			justify-content: space-around;
+			justify-content: space-between;
+			padding: 0 1rem;
 			gap: 8rem;
 
 			.nav-start,
 			.nav-start ~ * {
 				display: flex;
 				align-items: center;
-				justify-content: center;
-				max-width: 120px;
-				min-width: 120px;
-
-				.nav-start-wr,
-				.nav-start-wr ~ * {
-					margin: 0 auto;
-				}
+				justify-content: space-around;
 			}
 
+			.nav-start,
 			.nav-end {
-				flex: 1 1;
+				width: 100px;
+				justify-content: left;
+			}
+			.nav-end {
+				justify-content: right;
+			}
+
+			.nav-middle-wr {
+				display: flex;
+				flex-direction: row;
+			}
+
+			.nav-item-wr {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-width: 200px;
+				max-width: 200px;
+			}
+		}
+	}
+
+	main {
+		width: 100%;
+		height: 100%;
+
+		.front {
+			height: 100%;
+
+			.price {
+				margin-top: 60vh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 1.5rem;
 			}
 		}
 	}
 
 	canvas[data-id='hero'] {
-		top: 0;
-		left: 0;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 		position: absolute;
 		z-index: -1;
 	}
