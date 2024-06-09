@@ -81,7 +81,7 @@ import { Image } from 'astro:assets';
 
 				gsap.to(gltfScene.rotation, {
 					z: xPos * -1,
-					x: -yPos * -1,
+					x: -yPos * -0.5,
 					ease: 'power4.out',
 				});
 			});
@@ -104,7 +104,7 @@ import { Image } from 'astro:assets';
 	);
 
 	const light = new THREE.PointLight(); // soft white light
-	light.intensity = 15;
+	light.intensity = 20;
 	light.position.set(-5, 5, -5);
 	const lightH = new THREE.PointLightHelper(light);
 	scene.add(light, lightH);
