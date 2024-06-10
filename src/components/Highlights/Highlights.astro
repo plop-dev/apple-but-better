@@ -1,0 +1,29 @@
+---
+import '@/styles/globals.css';
+import HighlightsCarousel from '@/components/Highlights/HighlightsCarousel';
+---
+
+<div class='highlights'>
+	<div class='carousel'>
+		<HighlightsCarousel />
+	</div>
+</div>
+
+<style lang='scss'>
+	.highlights {
+		display: flex;
+		height: 80vh;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.carousel {
+		border-top: 2px solid var(--border);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 75%;
+		height: 100%;
+	}
+</style>
