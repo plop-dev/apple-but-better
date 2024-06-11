@@ -52,6 +52,7 @@ import { Image } from 'astro:assets';
 		</nav>
 		<main>
 			<div class='front h-screen'>
+				<div class='bg'></div>
 				<div class='title mt-[5vh] flex flex-col text-center'>
 					<h5 class='opacity-80'>The new iPhone 15 Pro</h5>
 					<h1 class=''>Titanium. Meh.</h1>
@@ -79,7 +80,8 @@ import { Image } from 'astro:assets';
 	const scene = new THREE.Scene();
 	const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
 
-	const renderer = new THREE.WebGLRenderer({ antialias: true });
+	const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+	renderer.setClearColor(0x000000, 0);
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	const ca = document.body.appendChild(renderer.domElement);
 	ca.setAttribute('data-id', 'hero');
@@ -126,8 +128,6 @@ import { Image } from 'astro:assets';
 	light.position.set(0.5, 0.5, 0);
 	// const lightH = new THREE.PointLightHelper(light);
 	scene.add(light);
-
-	scene.background = new THREE.Color('hsl(0, 0%, 7%)');
 
 	camera.position.set(0, 0, -0.2);
 	camera.lookAt(0, 0, 0);
@@ -221,7 +221,15 @@ import { Image } from 'astro:assets';
 		height: 100%;
 
 		.front {
-			height: 100%;
+			.bg {
+				position: absolute;
+				background: var(--radialPrimarySecondary);
+				opacity: 0.3;
+				width: 100vw;
+				height: 100vh;
+				top: 0;
+				left: 0;
+			}
 
 			.price {
 				margin-top: 60vh;

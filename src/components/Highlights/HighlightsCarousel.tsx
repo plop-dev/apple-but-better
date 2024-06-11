@@ -1,40 +1,31 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselDots } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
+import Autoplay from 'embla-carousel-autoplay';
 
-export default function PortfolioCarousel() {
+export default function PortfolioCarousel(props: any) {
 	return (
-		<Carousel className='w-full max-w-xs'>
+		<Carousel className='w-full'>
 			<CarouselContent>
-				<CarouselItem>
-					<div className='p-1'>
-						<Card>
-							<CardContent className='flex aspect-square items-center justify-center p-6'>
-								<span className='text-4xl font-semibold'>The New A17 Pro Chip</span>
-							</CardContent>
+				<CarouselItem className='basis-[92%] relative'>
+					<div className='p-1 h-full'>
+						<Card className='border-none bg-black rounded-lg h-full'>
+							<CardContent className='flex flex-col p-12 gap-4 rounded-lg absolute top-2 left-4 z-10'>{props.chip}</CardContent>
+							{props.chipImage}
 						</Card>
 					</div>
 				</CarouselItem>
-				<CarouselItem>
-					<div className='p-1'>
-						<Card>
-							<CardContent className='flex aspect-square items-center justify-center p-6'>
-								<span className='text-4xl font-semibold'>Forged in Titanium. Useless.</span>
-							</CardContent>
-						</Card>
-					</div>
-				</CarouselItem>
-				<CarouselItem>
-					<div className='p-1'>
-						<Card>
-							<CardContent className='flex aspect-square items-center justify-center p-6'>
-								<span className='text-4xl font-semibold'>The Longest Optical Zoom on an iPhone</span>
-							</CardContent>
+				<CarouselItem className='basis-[92%] relative'>
+					<div className='p-1 h-full'>
+						<Card className='border-none bg-black rounded-lg h-full'>
+							<CardContent className='flex flex-col p-12 gap-4 rounded-lg absolute top-2 left-4 z-10'>{props.titanium}</CardContent>
+							{props.titaniumImage}
 						</Card>
 					</div>
 				</CarouselItem>
 			</CarouselContent>
 			<CarouselPrevious />
 			<CarouselNext />
+			<CarouselDots />
 		</Carousel>
 	);
 }

@@ -70,6 +70,13 @@ small {
 		--radius: 0.5em;
 
 		--transition: ease 0.2s;
+
+		--linearPrimarySecondary: linear-gradient(#384975, #22242a);
+		--linearPrimaryAccent: linear-gradient(#384975, #2cb2e2);
+		--linearSecondaryAccent: linear-gradient(#22242a, #2cb2e2);
+		--radialPrimarySecondary: radial-gradient(#384975, #22242a);
+		--radialPrimaryAccent: radial-gradient(#384975, #2cb2e2);
+		--radialSecondaryAccent: radial-gradient(#22242a, #2cb2e2);
 	}
 
 	* {

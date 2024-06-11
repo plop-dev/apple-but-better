@@ -1,29 +1,121 @@
 ---
 import '@/styles/globals.css';
 import HighlightsCarousel from '@/components/Highlights/HighlightsCarousel';
+import { Image } from 'astro:assets';
+
+import highlight_chip from '@/assets/highlight_chip.jpg';
 ---
 
 <div class='highlights'>
+	<div class='ttl-ctn'>
+		<h2 class='opacity-60'>Get the highlights.</h2>
+	</div>
 	<div class='carousel'>
-		<HighlightsCarousel />
+		<HighlightsCarousel client:load>
+			<div class='chip' slot='chip'>
+				<span class='text-4xl font-semibold'>The New A17 Pro Chip</span>
+				<p class='text-2xl opacity-75 font-semibold'>Game-changing chip. Still a useless chip.</p>
+			</div>
+			<div class='img-ctn' slot='chipImage'>
+				<Image src={highlight_chip} alt='' />
+			</div>
+
+			<div class='titanium' slot='titanium'>
+				<span class='text-4xl font-semibold'>Forged in Titanium. Why?</span>
+				<p class='text-2xl opacity-75 font-semibold'>So lightweight, feels like it's going to fly out your pocket.</p>
+			</div>
+			<div class='img-ctn' slot='titaniumImage'>
+				<video
+					class='absolute right-0 z-0 w-[80%] h-full rounded-3xl overflow-hidden bg-black'
+					src='/videos/titanium.mp4'
+					muted
+					preload='auto'
+					playsinline
+					id='titanium_highlight_video'
+					onended='video_end()'></video>
+			</div>
+		</HighlightsCarousel>
 	</div>
 </div>
+
+<script>
+	// import gsap from 'gsap';
+	// import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	// gsap.registerPlugin(ScrollTrigger);
+
+	// const carouselForward = document.querySelectorAll('.highlights button:not(.slide-dot)')[1] as HTMLButtonElement;
+	// const carouselBackward = document.querySelectorAll('.highlights button:not(.slide-dot)')[0] as HTMLButtonElement;
+</script>
+
+<!-- <script is:inline defer>
+	const carouselForward = document.querySelectorAll('.highlights button:not(.slide-dot)')[1];
+	const carouselBackward = document.querySelectorAll('.highlights button:not(.slide-dot)')[0];
+	const video = document.getElementById('titanium_highlight_video');
+	const slides = document.querySelectorAll('.highlights button.slide-dot');
+
+	console.log(slides);
+	const classObserver = new MutationObserver(() => {
+		if (slides[1].classList.contains('bg-secondary-foreground/30')) {
+			video.play();
+		}
+	});
+
+	slides.forEach(slide => {
+		classObserver.observe(slide, {
+			attributes: true,
+			attributeFilter: ['class'],
+			childList: false,
+		});
+	});
+
+	function video_end() {
+		const canScrollNext = carouselForward.hasAttribute('disabled');
+		setTimeout(() => {
+			if (!canScrollNext) carouselForward.click();
+			else carouselBackward.click();
+		}, 300);
+	}
+</script> -->
+<script is:inline defer>
+	window.addEventListener('load', () => {
+		const slides = document.querySelectorAll('.highlights button.slide-dot');
+		console.log(slides); // Should now return 2 elements
+		// Rest of your code...
+	});
+</script>
 
 <style lang='scss'>
 	.highlights {
 		display: flex;
-		height: 80vh;
+		flex-direction: column;
+		gap: 3rem;
+		height: auto;
 		width: 100%;
 		justify-content: center;
 		align-items: center;
+
+		.ttl-ctn {
+			width: 90%;
+			text-align: left;
+		}
 	}
 
 	.carousel {
-		border-top: 2px solid var(--border);
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 75%;
-		height: 100%;
+		width: 90%;
+		padding: 1rem;
+
+		& > .chip,
+		& > .chip ~ * {
+			position: relative;
+		}
+
+		img {
+			border-radius: var(--radius);
+			margin: 0 auto;
+		}
 	}
 </style>
