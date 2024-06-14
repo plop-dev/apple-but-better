@@ -13,11 +13,23 @@ export default function HighlightsCarousel(props: any) {
 			return;
 		}
 
+		const videos: HTMLVideoElement[] = document.querySelectorAll('.highlights .carousel video') as unknown as HTMLVideoElement[];
+
 		setCount(api.scrollSnapList().length);
 		setCurrent(api.selectedScrollSnap() + 1);
 
 		api.on('select', () => {
 			setCurrent(api.selectedScrollSnap() + 1);
+		});
+
+		function onended(event: Event) {
+			if (api?.canScrollNext()) api.scrollNext();
+			else api?.scrollTo(0);
+		}
+
+		videos.forEach((video, index) => {
+			video.removeEventListener('ended', onended);
+			video.addEventListener('ended', onended);
 		});
 	}, [api]);
 
@@ -34,11 +46,6 @@ export default function HighlightsCarousel(props: any) {
 
 		videos.forEach((video, index) => {
 			if (video.getAttribute('data-highlight-video') === current.toString()) video.play();
-
-			video.addEventListener('ended', event => {
-				if (api.canScrollNext()) api.scrollNext();
-				else api.scrollPrev();
-			});
 		});
 	}, [current]);
 
