@@ -29,18 +29,22 @@ export default function HighlightsCarousel(props: any) {
 		const videos: HTMLVideoElement[] = document.querySelectorAll('.highlights .carousel video') as unknown as HTMLVideoElement[];
 
 		videos.forEach((video, index) => {
+			video.pause()
+		})
+
+		videos.forEach((video, index) => {
 			if (video.getAttribute('data-highlight-video') === current.toString()) video.play();
 
-			// video.addEventListener('ended', event => {
-			// 	if (api.canScrollNext()) api.scrollNext();
-			// 	else api.scrollPrev();
-			// });
+			video.addEventListener('ended', event => {
+				if (api.canScrollNext()) api.scrollNext();
+				else api.scrollPrev();
+			});
 		});
 	}, [current]);
 
 	return (
 		<Carousel className='w-full' setApi={setApi}>
-			<CarouselContent>
+			<CarouselContent className='min-h-[80vh]'>
 				<CarouselItem className='basis-[92%] relative'>
 					<div className='p-1 h-full'>
 						<Card className='border-none bg-black rounded-lg h-full'>
@@ -62,6 +66,14 @@ export default function HighlightsCarousel(props: any) {
 						<Card className='border-none rounded-lg h-full'>
 							<CardContent className='flex flex-col p-12 gap-4 rounded-lg absolute top-2 left-4 z-10'>{props.zoom}</CardContent>
 							{props.zoomMedia}
+						</Card>
+					</div>
+				</CarouselItem>
+				<CarouselItem className='basis-[92%] relative'>
+					<div className='p-1 h-full'>
+						<Card className='border-none rounded-lg h-full'>
+							<CardContent className='flex flex-col p-12 gap-4 rounded-lg absolute top-2 left-4 z-10'>{props.action}</CardContent>
+							{props.actionMedia}
 						</Card>
 					</div>
 				</CarouselItem>
