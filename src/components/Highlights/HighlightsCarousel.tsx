@@ -29,8 +29,8 @@ export default function HighlightsCarousel(props: any) {
 		const videos: HTMLVideoElement[] = document.querySelectorAll('.highlights .carousel video') as unknown as HTMLVideoElement[];
 
 		videos.forEach((video, index) => {
-			video.pause()
-		})
+			video.pause();
+		});
 
 		videos.forEach((video, index) => {
 			if (video.getAttribute('data-highlight-video') === current.toString()) video.play();
@@ -45,34 +45,34 @@ export default function HighlightsCarousel(props: any) {
 	return (
 		<Carousel className='w-full' setApi={setApi}>
 			<CarouselContent className='min-h-[80vh]'>
-				<CarouselItem className='basis-[92%] relative'>
+				<CarouselItem className='basis-[91%] relative'>
 					<div className='p-1 h-full'>
 						<Card className='border-none bg-black rounded-lg h-full'>
-							<CardContent className='flex flex-col p-12 gap-4 rounded-lg absolute top-2 left-4 z-10'>{props.chip}</CardContent>
+							<CardContent className='flex flex-col p-12 gap-4 rounded-lg absolute top-4 left-14 z-10'>{props.chip}</CardContent>
 							{props.chipMedia}
 						</Card>
 					</div>
 				</CarouselItem>
-				<CarouselItem className='basis-[92%] relative'>
+				<CarouselItem className='basis-[91%] relative'>
 					<div className='p-1 h-full'>
 						<Card className='border-none bg-black rounded-lg h-full'>
-							<CardContent className='flex flex-col p-12 gap-4 rounded-lg absolute top-2 left-4 z-10'>{props.titanium}</CardContent>
+							<CardContent className='flex flex-col p-12 gap-4 rounded-lg absolute top-4 left-14 z-10'>{props.titanium}</CardContent>
 							{props.titaniumMedia}
 						</Card>
 					</div>
 				</CarouselItem>
-				<CarouselItem className='basis-[92%] relative'>
+				<CarouselItem className='basis-[91%] relative'>
 					<div className='p-1 h-full'>
 						<Card className='border-none rounded-lg h-full'>
-							<CardContent className='flex flex-col p-12 gap-4 rounded-lg absolute top-2 left-4 z-10'>{props.zoom}</CardContent>
+							<CardContent className='flex flex-col p-12 gap-4 rounded-lg absolute top-4 left-14 z-10'>{props.zoom}</CardContent>
 							{props.zoomMedia}
 						</Card>
 					</div>
 				</CarouselItem>
-				<CarouselItem className='basis-[92%] relative'>
+				<CarouselItem className='basis-[91%] relative'>
 					<div className='p-1 h-full'>
 						<Card className='border-none rounded-lg h-full'>
-							<CardContent className='flex flex-col p-12 gap-4 rounded-lg absolute top-2 left-4 z-10'>{props.action}</CardContent>
+							<CardContent className='flex flex-col p-12 gap-4 rounded-lg absolute top-4 left-14 z-10'>{props.action}</CardContent>
 							{props.actionMedia}
 						</Card>
 					</div>
