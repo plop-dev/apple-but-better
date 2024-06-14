@@ -1,9 +1,6 @@
 ---
 import '@/styles/globals.css';
 import HighlightsCarousel from '@/components/Highlights/HighlightsCarousel';
-import { Image } from 'astro:assets';
-
-import highlight_chip from '@/assets/highlight_chip.jpg';
 ---
 
 <div class='highlights'>
@@ -16,74 +13,72 @@ import highlight_chip from '@/assets/highlight_chip.jpg';
 				<span class='text-4xl font-semibold'>The New A17 Pro Chip</span>
 				<p class='text-2xl opacity-75 font-semibold'>Game-changing chip. Still a useless chip.</p>
 			</div>
-			<div class='img-ctn' slot='chipImage'>
-				<Image src={highlight_chip} alt='' />
+			<div class='img-ctn' slot='chipMedia'>
+				<video
+					class='absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-0 w-[80%] h-[80%] rounded-3xl overflow-hidden bg-black'
+					src='/videos/chip.mp4'
+					muted
+					preload='none'
+					playsinline
+					id='chip_highlight_video'
+					data-highlight-video='1'>
+				</video>
 			</div>
 
 			<div class='titanium' slot='titanium'>
 				<span class='text-4xl font-semibold'>Forged in Titanium. Why?</span>
 				<p class='text-2xl opacity-75 font-semibold'>So lightweight, feels like it's going to fly out your pocket.</p>
 			</div>
-			<div class='img-ctn' slot='titaniumImage'>
+			<div class='img-ctn' slot='titaniumMedia'>
 				<video
-					class='absolute right-0 z-0 w-[80%] h-full rounded-3xl overflow-hidden bg-black'
+					class='absolute right-0 bottom-5 z-0 w-[80%] h-[80%] rounded-3xl overflow-hidden bg-black'
 					src='/videos/titanium.mp4'
+					muted
+					preload='none'
+					playsinline
+					id='titanium_highlight_video'
+					data-highlight-video='2'>
+				</video>
+			</div>
+
+			<div class='zoom' slot='zoom'>
+				<span class='text-4xl font-semibold'>Forged in Titanium. Why?</span>
+				<p class='text-2xl opacity-75 font-semibold'>So lightweight, feels like it's going to fly out your pocket.</p>
+			</div>
+			<div class='img-ctn' slot='zoomMedia'>
+				<video
+					class='absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-[-1] h-[680px] rounded-3xl overflow-hidden bg-black'
+					src='/videos/zoom.mp4'
 					muted
 					preload='auto'
 					playsinline
-					id='titanium_highlight_video'
-					onended='video_end()'></video>
+					id='zoom_highlight_video'
+					data-highlight-video='3'></video>
 			</div>
 		</HighlightsCarousel>
 	</div>
 </div>
 
-<script>
-	// import gsap from 'gsap';
-	// import { ScrollTrigger } from 'gsap/ScrollTrigger';
+<!-- <script>
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-	// gsap.registerPlugin(ScrollTrigger);
+	gsap.registerPlugin(ScrollTrigger);
 
-	// const carouselForward = document.querySelectorAll('.highlights button:not(.slide-dot)')[1] as HTMLButtonElement;
-	// const carouselBackward = document.querySelectorAll('.highlights button:not(.slide-dot)')[0] as HTMLButtonElement;
-</script>
+	const carouselForward = document.querySelectorAll('.highlights button:not(.slide-dot)')[1] as HTMLButtonElement;
+	const carouselBackward = document.querySelectorAll('.highlights button:not(.slide-dot)')[0] as HTMLButtonElement;
+</script> -->
 
 <!-- <script is:inline defer>
 	const carouselForward = document.querySelectorAll('.highlights button:not(.slide-dot)')[1];
 	const carouselBackward = document.querySelectorAll('.highlights button:not(.slide-dot)')[0];
-	const video = document.getElementById('titanium_highlight_video');
-	const slides = document.querySelectorAll('.highlights button.slide-dot');
-
-	console.log(slides);
-	const classObserver = new MutationObserver(() => {
-		if (slides[1].classList.contains('bg-secondary-foreground/30')) {
-			video.play();
-		}
-	});
-
-	slides.forEach(slide => {
-		classObserver.observe(slide, {
-			attributes: true,
-			attributeFilter: ['class'],
-			childList: false,
-		});
-	});
 
 	function video_end() {
 		const canScrollNext = carouselForward.hasAttribute('disabled');
-		setTimeout(() => {
-			if (!canScrollNext) carouselForward.click();
-			else carouselBackward.click();
-		}, 300);
+		if (!canScrollNext) carouselForward.click();
+		else carouselBackward.click();
 	}
 </script> -->
-<script is:inline defer>
-	window.addEventListener('load', () => {
-		const slides = document.querySelectorAll('.highlights button.slide-dot');
-		console.log(slides); // Should now return 2 elements
-		// Rest of your code...
-	});
-</script>
 
 <style lang='scss'>
 	.highlights {
