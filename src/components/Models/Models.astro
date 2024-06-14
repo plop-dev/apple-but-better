@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+
+import black from '@/assets/models/black.png';
+---
+
+<div class='models p-12'>
+	<h2 class='opacity-60'>Choose your look</h2>
+	<div class='model-view'>
+		<div class='wrapper'>
+			<Image src={black} alt='' />
+		</div>
+	</div>
+	<div class='inputs'></div>
+</div>
+
+<script></script>
+
+<style lang='scss'>
+	.models {
+		width: 100%;
+		height: auto;
+		background-color: black;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.model-view {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 70%;
+		width: 100%;
+
+		.wrapper {
+			img {
+				overflow: hidden;
+			}
+		}
+	}
+</style>
