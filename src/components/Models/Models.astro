@@ -25,6 +25,7 @@ import white from '@/assets/models/white.png';
 			</div>
 		</div>
 		<div class='model-colour-picker'>
+			<span id='viewModelText'>Natural Titanium</span>
 			<div class='inputs'>
 				<ul role='radiogroup'>
 					<li class='model-item'>
@@ -68,14 +69,22 @@ import white from '@/assets/models/white.png';
 	radioButtons.forEach(radioButton => {
 		radioButton.addEventListener('change', event => {
 			const target = event.target as HTMLInputElement;
+			const viewModelText = document.getElementById('viewModelText');
 
-			const chosenView = Array.from(views).find(view => view.classList.contains(`model-view-${target.getAttribute('data-colour')}`));
-			console.log(chosenView);
+			if (viewModelText && target.getAttribute('data-colour')) {
+				const chosenView = Array.from(views).find(view => view.classList.contains(`model-view-${target.getAttribute('data-colour')}`));
 
-			views.forEach((view, index) => {
-				view.classList.remove('current');
-			});
-			chosenView?.classList.add('current');
+				views.forEach((view, index) => {
+					view.classList.remove('current');
+				});
+				chosenView?.classList.add('current');
+
+				const dataColour = target.getAttribute('data-colour');
+				if (dataColour) {
+					const capitalizedDataColour = dataColour.charAt(0).toUpperCase() + dataColour.slice(1);
+					viewModelText.textContent = `${capitalizedDataColour} Titanium`;
+				}
+			}
 		});
 	});
 </script>
@@ -105,14 +114,16 @@ import white from '@/assets/models/white.png';
 
 		.wrapper {
 			max-height: 100%;
-			width: 70%;
+			width: 50%;
 			margin: 0 auto;
 
 			.model-view-item {
 				position: relative;
 				opacity: 0;
-				z-index: 1;
-				transition: 0.5s ease;
+				z-index: 0;
+				transition:
+					z-index 1s ease,
+					opacity 0.5s ease;
 
 				&.current {
 					z-index: 2;
@@ -131,12 +142,18 @@ import white from '@/assets/models/white.png';
 
 	.model-colour-picker {
 		z-index: 10;
-		width: 100%;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		position: absolute;
-		left: 0;
+		gap: 1rem;
+		left: 50%;
+		transform: translateX(-50%);
 		bottom: 2rem;
+
+		#viewModelText {
+			margin: 0 auto;
+		}
 
 		.inputs {
 			justify-content: center;
