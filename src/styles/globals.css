@@ -77,6 +77,11 @@ small {
 		--radialPrimarySecondary: radial-gradient(#384975, #22242a);
 		--radialPrimaryAccent: radial-gradient(#384975, #2cb2e2);
 		--radialSecondaryAccent: radial-gradient(#22242a, #2cb2e2);
+
+		--model-natural: #8f8a81;
+		--model-black: #494949;
+		--model-blue: #474d5b;
+		--model-white: #c9c8c3;
 	}
 
 	* {

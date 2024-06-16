@@ -1,40 +1,217 @@
 ---
 import { Image } from 'astro:assets';
 
+import natural from '@/assets/models/natural.png';
 import black from '@/assets/models/black.png';
+import blue from '@/assets/models/blue.png';
+import white from '@/assets/models/white.png';
 ---
 
 <div class='models p-12'>
 	<h2 class='opacity-60'>Choose your look</h2>
 	<div class='model-view'>
 		<div class='wrapper'>
-			<Image src={black} alt='' />
+			<div class='model-view-item model-view-natural current'>
+				<Image src={natural} alt='' />
+			</div>
+			<div class='model-view-item model-view-black'>
+				<Image src={black} alt='' />
+			</div>
+			<div class='model-view-item model-view-blue'>
+				<Image src={blue} alt='' />
+			</div>
+			<div class='model-view-item model-view-white'>
+				<Image src={white} alt='' />
+			</div>
+		</div>
+		<div class='model-colour-picker'>
+			<div class='inputs'>
+				<ul role='radiogroup'>
+					<li class='model-item'>
+						<input id='model-natural' type='radio' checked='checked' name='model-colour' data-colour='natural' />
+
+						<label for='model-natural'>
+							<span class='model-colour'></span>
+						</label>
+					</li>
+					<li class='model-item'>
+						<input id='model-black' type='radio' name='model-colour' data-colour='black' />
+
+						<label for='model-black'>
+							<span class='model-colour'></span>
+						</label>
+					</li>
+					<li class='model-item'>
+						<input id='model-blue' type='radio' name='model-colour' data-colour='blue' />
+
+						<label for='model-blue'>
+							<span class='model-colour'></span>
+						</label>
+					</li>
+					<li class='model-item'>
+						<input id='model-white' type='radio' name='model-colour' data-colour='white' />
+
+						<label for='model-white'>
+							<span class='model-colour'></span>
+						</label>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
-	<div class='inputs'></div>
 </div>
 
-<script></script>
+<script>
+	const radioButtons = document.querySelectorAll<HTMLInputElement>('input[type="radio"]');
+	const views = document.querySelectorAll<HTMLElement>('.model-view-item');
+
+	radioButtons.forEach(radioButton => {
+		radioButton.addEventListener('change', event => {
+			const target = event.target as HTMLInputElement;
+
+			const chosenView = Array.from(views).find(view => view.classList.contains(`model-view-${target.getAttribute('data-colour')}`));
+			console.log(chosenView);
+
+			views.forEach((view, index) => {
+				view.classList.remove('current');
+			});
+			chosenView?.classList.add('current');
+		});
+	});
+</script>
 
 <style lang='scss'>
 	.models {
 		width: 100%;
-		height: auto;
+		height: 90vh;
 		background-color: black;
 		display: flex;
 		flex-direction: column;
+		position: relative;
 	}
 
 	.model-view {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 70%;
+		height: 100%;
 		width: 100%;
+		// position: relative;
+		// background-color: black;
 
 		.wrapper {
-			img {
+			max-height: 100%;
+			width: 70%;
+			margin: 0 auto;
+
+			.model-view-item {
+				position: relative;
+				opacity: 0;
+				z-index: 1;
+				transition: 0.5s ease;
+
+				&.current {
+					z-index: 2;
+					opacity: 1;
+				}
+
+				img {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+				}
+			}
+		}
+	}
+
+	.model-colour-picker {
+		z-index: 10;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		position: absolute;
+		left: 0;
+		bottom: 2rem;
+
+		.inputs {
+			justify-content: center;
+			overflow: hidden;
+			background-color: hsl(var(--secondary));
+			display: flex;
+			backdrop-filter: blur(6px);
+			box-shadow: inset 0 0 1px hsl(var(--foreground) / 30%);
+			border-radius: 32px;
+			padding: 0.5rem 0.5rem;
+
+			ul {
+				display: flex;
+				padding: 0 0.5rem;
+				align-items: center;
+				justify-content: flex-start;
+				list-style: none;
 				overflow: hidden;
+
+				li {
+					margin: 0 5px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+
+					input {
+						width: 1px;
+						height: 1px;
+						clip: rect(0 0 0 0);
+						clip-path: inset(50%);
+						overflow: hidden;
+						position: absolute;
+						white-space: nowrap;
+
+						&#model-natural ~ label span {
+							background-color: var(--model-natural);
+						}
+						&#model-black ~ label span {
+							background-color: var(--model-black);
+						}
+						&#model-blue ~ label span {
+							background-color: var(--model-blue);
+						}
+						&#model-white ~ label span {
+							background-color: var(--model-white);
+						}
+
+						&:checked ~ label {
+							border-color: hsl(var(--foreground));
+							pointer-events: none;
+
+							& > span {
+								pointer-events: none;
+							}
+						}
+					}
+
+					label {
+						align-items: center;
+						border: 2px solid hsl(var(--secondary) / 0%);
+						border-radius: 50%;
+						box-sizing: border-box;
+						cursor: pointer;
+						display: flex;
+						height: 32px;
+						width: 32px;
+						justify-content: center;
+						padding: 2px;
+						overflow: hidden;
+						transition: border-color var(--transition);
+
+						span {
+							border-radius: 50%;
+							position: relative;
+							height: 24px;
+							width: 24px;
+						}
+					}
+				}
 			}
 		}
 	}
