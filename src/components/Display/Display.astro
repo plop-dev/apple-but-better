@@ -1,24 +1,23 @@
 ---
-import { Image } from "astro:assets";
-import frameImg from '@/assets/models/frame.png'
-
+import { Image } from 'astro:assets';
+import frameImg from '@/assets/models/frame.png';
 ---
 
 <div class='display'>
 	<div class='anim'>
-		<div class="frame">
-			<Image src={frameImg} alt=""></Image>
-		</div>
-		<div class="video-ctn">
-			<video class='' playsinline src='/videos/cliff.mp4' muted></video>
+		<div class='frame'>
+			<Image src={frameImg} alt='' />
+			<div class='video-ctn'>
+				<video class='' loop playsinline src='/videos/cinematic.mp4' muted></video>
+			</div>
 		</div>
 	</div>
-	<div class='display-content'>
-		<!-- <div class='info'>
+	<!-- <div class='display-content'>
+		<div class='info'>
 			<h2>A beautiful full-screen OLED display</h2>
 			<p>The Super Retina XDR Display offers a crisp image whilst offering a smooth refresh rate of up to 120Hz.</p>
-		</div> -->
-	</div>
+		</div>
+	</div> -->
 </div>
 
 <script>
@@ -33,6 +32,7 @@ import frameImg from '@/assets/models/frame.png'
 
 <style lang='scss'>
 	.display {
+		margin-top: 50vh;
 		width: 100%;
 		height: auto;
 		display: flex;
@@ -49,27 +49,35 @@ import frameImg from '@/assets/models/frame.png'
 
 	.anim {
 		width: 100vw;
-		height: auto;
 		position: relative;
-		max-height: 468px;
-
-		.video-ctn {
-			width: 1024px;
-			position: relative;
-			overflow: hidden;
-
-			video {
-				height: auto;
-			}
-		}
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		scale: 2.5;
 
 		.frame {
 			width: 1024px;
-			
+			position: relative;
+
 			img {
 				position: relative;
 				z-index: 10;
 				width: 1024px;
+			}
+
+			.video-ctn {
+				width: 1024px;
+				position: absolute;
+				overflow: hidden;
+				top: 50%;
+				right: -1rem;
+				transform: translateY(-50%);
+
+				video {
+					width: 97%;
+					height: auto;
+					border-radius: 60px;
+				}
 			}
 		}
 	}
