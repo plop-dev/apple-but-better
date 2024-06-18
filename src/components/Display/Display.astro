@@ -1,18 +1,35 @@
 ---
+import { Image } from "astro:assets";
+import frameImg from '@/assets/models/frame.png'
 
 ---
 
 <div class='display'>
-	<div class='display-content'>
-		<div class='anim'>
-			<video class='rounded-lg' autoplay playsinline src='/videos/cliff.mp4' muted></video>
+	<div class='anim'>
+		<div class="frame">
+			<Image src={frameImg} alt=""></Image>
 		</div>
-		<div class='info'>
-			<h2>A beautiful full-screen OLED display</h2>
-			<p>The Super Retina XDR Display offers a crisp image whilst offering a smooth refresh rate of up to 120Hz.</p>
+		<div class="video-ctn">
+			<video class='' playsinline src='/videos/cliff.mp4' muted></video>
 		</div>
 	</div>
+	<div class='display-content'>
+		<!-- <div class='info'>
+			<h2>A beautiful full-screen OLED display</h2>
+			<p>The Super Retina XDR Display offers a crisp image whilst offering a smooth refresh rate of up to 120Hz.</p>
+		</div> -->
+	</div>
 </div>
+
+<script>
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	const display = document.querySelector('.display');
+	const video = document.querySelector('video');
+</script>
 
 <style lang='scss'>
 	.display {
@@ -31,6 +48,30 @@
 	}
 
 	.anim {
+		width: 100vw;
+		height: auto;
+		position: relative;
+		max-height: 468px;
+
+		.video-ctn {
+			width: 1024px;
+			position: relative;
+			overflow: hidden;
+
+			video {
+				height: auto;
+			}
+		}
+
+		.frame {
+			width: 1024px;
+			
+			img {
+				position: relative;
+				z-index: 10;
+				width: 1024px;
+			}
+		}
 	}
 
 	.info {
