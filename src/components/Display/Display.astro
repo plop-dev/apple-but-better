@@ -1,9 +1,16 @@
 ---
 import { Image } from 'astro:assets';
 import frameImg from '@/assets/models/frame.png';
+import Spacer from '../Spacer.astro';
 ---
 
 <div class='display'>
+	<div class='display-title'>
+		<h1 class='font-bold text-foreground/60'>A beautiful <span class='text-foreground'>full-screen OLED</span> display</h1>
+	</div>
+
+	<Spacer spacingSize='40vh' />
+
 	<div class='display-anim-ctn'>
 		<div id='display-anim'>
 			<div class='frame'>
@@ -16,8 +23,12 @@ import frameImg from '@/assets/models/frame.png';
 	</div>
 	<div class='display-content'>
 		<div class='info'>
-			<h2>A beautiful full-screen OLED display</h2>
-			<p>The Super Retina XDR Display offers a crisp image whilst offering a smooth refresh rate of up to 120Hz.</p>
+			<!-- <h2 class='font-bold text-foreground/60'>A beautiful <span class='text-foreground'>full-screen OLED</span> display</h2> -->
+			<p class='font-semibold text-3xl text-foreground/70'>
+				The iPhone 15 Pro features a 6.1-inch <span class='text-foreground'>Super Retina XDR OLED</span> display with 2556x1179 resolution, Dynamic Island,
+				and ProMotion technology. <span class='text-foreground'>Enjoy vibrant HDR visuals</span>, True Tone, and peak brightness of 2,000 nits outdoors,
+				all on a fingerprint-resistant screen.
+			</p>
 		</div>
 	</div>
 </div>
@@ -36,7 +47,7 @@ import frameImg from '@/assets/models/frame.png';
 	const tl = gsap.timeline({
 		scrollTrigger: {
 			trigger: anim,
-			start: 'top 30%',
+			start: 'top 25%',
 			// end: '+=1000',
 			scrub: 1,
 			pin: true,
@@ -64,7 +75,6 @@ import frameImg from '@/assets/models/frame.png';
 		scrollTrigger: {
 			trigger: info,
 			scrub: 0.5,
-			markers: true,
 			start: 'top 80%',
 			end: 'bottom 60%',
 		},
@@ -73,7 +83,6 @@ import frameImg from '@/assets/models/frame.png';
 
 <style lang='scss'>
 	.display {
-		margin-top: 50vh;
 		width: 100%;
 		height: auto;
 		display: flex;
@@ -90,6 +99,11 @@ import frameImg from '@/assets/models/frame.png';
 			height: 100%;
 			opacity: 0;
 			transform: translateY(-80px) rotateX(-30deg);
+
+			p {
+				width: 70%;
+				text-align: center;
+			}
 		}
 	}
 
