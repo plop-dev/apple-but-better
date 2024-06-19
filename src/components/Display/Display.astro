@@ -1,74 +1,79 @@
 ---
-import { Image } from "astro:assets";
-import frameImg from "@/assets/models/frame.png";
+import { Image } from 'astro:assets';
+import frameImg from '@/assets/models/frame.png';
 ---
 
-<div class="display">
-	<div class="display-anim-ctn">
-		<div id="display-anim">
-			<div class="frame">
-				<Image src={frameImg} alt="" />
-				<div class="video-ctn">
-					<video
-						playsinline
-						src="/videos/cinematic.mp4"
-						muted></video>
+<div class='display'>
+	<div class='display-anim-ctn'>
+		<div id='display-anim'>
+			<div class='frame'>
+				<Image src={frameImg} alt='' />
+				<div class='video-ctn'>
+					<video playsinline src='/videos/cinematic.mp4' muted></video>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="display-content">
-		<div class="info">
+	<div class='display-content'>
+		<div class='info'>
 			<h2>A beautiful full-screen OLED display</h2>
-			<p>
-				The Super Retina XDR Display offers a crisp image whilst
-				offering a smooth refresh rate of up to 120Hz.
-			</p>
+			<p>The Super Retina XDR Display offers a crisp image whilst offering a smooth refresh rate of up to 120Hz.</p>
 		</div>
 	</div>
 </div>
 
 <script>
-	import gsap from "gsap";
-	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 	gsap.registerPlugin(ScrollTrigger);
 
-	const anim = document.getElementById("display-anim");
-	const frame = document.querySelector(".frame");
-	const info = document.querySelector(".display-content");
-	const video = document.querySelector<HTMLVideoElement>("#display-anim video");
+	const anim = document.getElementById('display-anim');
+	const frame = document.querySelector('.frame');
+	const info = document.querySelector('.display-content');
+	const video = document.querySelector<HTMLVideoElement>('#display-anim video');
 
 	const tl = gsap.timeline({
 		scrollTrigger: {
 			trigger: anim,
-			start: "top 30%",
-			end: '+=1000',
+			start: 'top 30%',
+			// end: '+=1000',
 			scrub: 1,
 			pin: true,
 			onEnter: () => {
 				video?.play();
 			},
+			onLeave: () => {
+				if (video) video.currentTime = 0;
+			},
 		},
 	});
 	tl.to(frame, {
 		duration: 2,
-		scale: "1",
+		scale: '0.75',
 	});
 	tl.to(frame, {
 		duration: 3,
-		rotate: "90deg",
-		transformOrigin: "center",
+		rotate: '90deg',
+		transformOrigin: 'center',
 	});
-	tl.to(info, {
-		opacity: "1",
-		transform: "translateY(0px) rotateX(0deg)",
+
+	gsap.to(info, {
+		opacity: '1',
+		transform: 'translateY(0px) rotateX(0deg)',
+		scrollTrigger: {
+			trigger: info,
+			scrub: 0.5,
+			markers: true,
+			start: 'top 80%',
+			end: 'bottom 60%',
+		},
 	});
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 	.display {
-		margin-top: 25vh;
+		margin-top: 50vh;
 		width: 100%;
 		height: auto;
 		display: flex;
@@ -76,7 +81,7 @@ import frameImg from "@/assets/models/frame.png";
 		align-items: center;
 
 		.display-content {
-			background: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
+			// background: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
 			margin-bottom: 50vh;
 			display: flex;
 			flex-direction: column;
@@ -84,13 +89,14 @@ import frameImg from "@/assets/models/frame.png";
 			width: 100%;
 			height: 100%;
 			opacity: 0;
-			transform: translateY(-80px) rotateX(30deg);
+			transform: translateY(-80px) rotateX(-30deg);
 		}
 	}
 
 	.display-anim-ctn {
 		width: 100%;
 		height: 165vh;
+		margin: 0;
 
 		#display-anim {
 			width: 100%;
@@ -103,7 +109,7 @@ import frameImg from "@/assets/models/frame.png";
 				width: 1024px;
 				position: relative;
 				overflow: hidden;
-				scale: 1;
+				scale: 1.8;
 
 				img {
 					position: relative;
