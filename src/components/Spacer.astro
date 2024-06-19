@@ -1,0 +1,9 @@
+---
+interface Props {
+	spacingSize: string;
+}
+
+const { spacingSize } = Astro.props;
+---
+
+<div class='spacer' style={`height: ${spacingSize};`}></div>
