@@ -1,82 +1,129 @@
 ---
-import { Image } from 'astro:assets';
-import frameImg from '@/assets/models/frame.png';
+import { Image } from "astro:assets";
+import frameImg from "@/assets/models/frame.png";
 ---
 
-<div class='display'>
-	<div class='anim'>
-		<div class='frame'>
-			<Image src={frameImg} alt='' />
-			<div class='video-ctn'>
-				<video class='' loop playsinline src='/videos/cinematic.mp4' muted></video>
+<div class="display">
+	<div class="display-anim-ctn">
+		<div id="display-anim">
+			<div class="frame">
+				<Image src={frameImg} alt="" />
+				<div class="video-ctn">
+					<video
+						playsinline
+						src="/videos/cinematic.mp4"
+						muted></video>
+				</div>
 			</div>
 		</div>
 	</div>
-	<!-- <div class='display-content'>
-		<div class='info'>
+	<div class="display-content">
+		<div class="info">
 			<h2>A beautiful full-screen OLED display</h2>
-			<p>The Super Retina XDR Display offers a crisp image whilst offering a smooth refresh rate of up to 120Hz.</p>
+			<p>
+				The Super Retina XDR Display offers a crisp image whilst
+				offering a smooth refresh rate of up to 120Hz.
+			</p>
 		</div>
-	</div> -->
+	</div>
 </div>
 
 <script>
-	import gsap from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import gsap from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 	gsap.registerPlugin(ScrollTrigger);
 
-	const display = document.querySelector('.display');
-	const video = document.querySelector('video');
+	const anim = document.getElementById("display-anim");
+	const frame = document.querySelector(".frame");
+	const info = document.querySelector(".display-content");
+	const video = document.querySelector<HTMLVideoElement>("#display-anim video");
+
+	const tl = gsap.timeline({
+		scrollTrigger: {
+			trigger: anim,
+			start: "top 30%",
+			end: '+=1000',
+			scrub: 1,
+			pin: true,
+			onEnter: () => {
+				video?.play();
+			},
+		},
+	});
+	tl.to(frame, {
+		duration: 2,
+		scale: "1",
+	});
+	tl.to(frame, {
+		duration: 3,
+		rotate: "90deg",
+		transformOrigin: "center",
+	});
+	tl.to(info, {
+		opacity: "1",
+		transform: "translateY(0px) rotateX(0deg)",
+	});
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 	.display {
-		margin-top: 50vh;
+		margin-top: 25vh;
 		width: 100%;
 		height: auto;
 		display: flex;
-		justify-content: center;
+		flex-direction: column;
+		align-items: center;
 
 		.display-content {
+			background: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
+			margin-bottom: 50vh;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			width: 80%;
+			width: 100%;
 			height: 100%;
+			opacity: 0;
+			transform: translateY(-80px) rotateX(30deg);
 		}
 	}
 
-	.anim {
-		width: 100vw;
-		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		scale: 2.5;
+	.display-anim-ctn {
+		width: 100%;
+		height: 165vh;
 
-		.frame {
-			width: 1024px;
+		#display-anim {
+			width: 100%;
 			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 
-			img {
+			.frame {
+				width: 1024px;
 				position: relative;
-				z-index: 10;
-				width: 1024px;
-			}
-
-			.video-ctn {
-				width: 1024px;
-				position: absolute;
 				overflow: hidden;
-				top: 50%;
-				right: -1rem;
-				transform: translateY(-50%);
+				scale: 1;
 
-				video {
-					width: 97%;
-					height: auto;
-					border-radius: 60px;
+				img {
+					position: relative;
+					z-index: 10;
+					width: 1024px;
+				}
+
+				.video-ctn {
+					width: 1024px;
+					position: absolute;
+					overflow: hidden;
+					top: 50%;
+					right: -1rem;
+					transform: translateY(-50%);
+
+					video {
+						width: 97%;
+						height: auto;
+						border-radius: 60px;
+					}
 				}
 			}
 		}
