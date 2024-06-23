@@ -54,9 +54,6 @@ import Spacer from '../Spacer.astro';
 			onEnter: () => {
 				video?.play();
 			},
-			onLeave: () => {
-				if (video) video.currentTime = 0;
-			},
 		},
 	});
 	tl.to(frame, {
