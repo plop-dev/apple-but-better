@@ -1,9 +1,36 @@
 ---
+import { Image } from 'astro:assets';
 
+import heroImage from '@/assets/hero_camera.jpg';
 ---
 
 <div class='camera'>
 	<div class='header'>
 		<h1 class='font-bold'>Capture your wildest imagination.</h1>
 	</div>
+	<div class='image-showcase'>
+		<div class='img-ctn'>
+			<Image src={heroImage} alt='' />
+		</div>
+	</div>
 </div>
+
+<style lang='scss'>
+	.camera {
+		background-color: black;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: auto;
+		padding: 10vh 2rem 0 2rem;
+		align-items: center;
+
+		.header {
+			display: flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+			align-content: center;
+			width: 100%;
+		}
+	}
+</style>

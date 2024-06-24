@@ -4,6 +4,7 @@ import frameImg from '@/assets/models/frame.png';
 import Spacer from '../Spacer.astro';
 ---
 
+<Spacer spacingSize='10vh' />
 <div class='display'>
 	<div class='display-title'>
 		<h1 class='font-bold text-foreground/60'>A beautiful <span class='text-foreground'>full-screen OLED</span> display</h1>
@@ -41,7 +42,7 @@ import Spacer from '../Spacer.astro';
 
 	const anim = document.getElementById('display-anim');
 	const frame = document.querySelector('.frame');
-	const info = document.querySelector('.display-content');
+	const info = document.querySelector('.display-content .info');
 	const video = document.querySelector<HTMLVideoElement>('#display-anim video');
 
 	const tl = gsap.timeline({
@@ -87,19 +88,27 @@ import Spacer from '../Spacer.astro';
 		align-items: center;
 
 		.display-content {
-			// background: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
-			margin-bottom: 50vh;
+			background: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			padding-bottom: 10vh;
 			width: 100%;
 			height: 100%;
-			opacity: 0;
-			transform: translateY(-80px) rotateX(-30deg);
 
-			p {
-				width: 70%;
-				text-align: center;
+			.info {
+				opacity: 0;
+				transform: translateY(-80px) rotateX(-30deg);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding: 2rem;
+				gap: 1rem;
+
+				p {
+					width: 70%;
+					text-align: center;
+				}
 			}
 		}
 	}
@@ -144,13 +153,5 @@ import Spacer from '../Spacer.astro';
 				}
 			}
 		}
-	}
-
-	.info {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 2rem;
-		gap: 1rem;
 	}
 </style>
