@@ -1,22 +1,42 @@
 ---
+import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 
 import heroImage from '@/assets/hero_camera.jpg';
 import Spacer from '../Spacer.astro';
+
+const images = await Astro.glob('/src/assets/camera/*.jpg')
 ---
 
 <div class='camera'>
-	<div class='ctn'>
-		<div class='header'>
-			<h1 class='font-bold'>Capture your wildest imagination.</h1>
-			<p class='font-semibold text-xl text-foreground/70'>
-				From dramatic framing flexibility to next-generation portraits, see what you can do with our most powerful iPhone camera system (kinda).
-			</p>
+	<div class="hero">
+		<div class='ctn'>
+			<div class='header'>
+				<h1 class='font-bold'>Capture your wildest imagination.</h1>
+				<p class='font-semibold text-xl text-foreground/70'>
+					From dramatic framing flexibility to next-generation portraits, see what you can do with our most powerful iPhone camera system (kinda).
+				</p>
+			</div>
+			<Spacer spacingSize='20vh'></Spacer>
+			<div class='image-showcase'>
+				<div class='img-ctn'>
+					<Image src={heroImage} alt='' />
+				</div>
+			</div>
 		</div>
-		<Spacer spacingSize='20vh'></Spacer>
-		<div class='image-showcase'>
-			<div class='img-ctn'>
-				<Image src={heroImage} alt='' />
+	</div>
+
+	<div class="advanced">
+		<div class="header">
+			<h3>cool cameras</h3>
+		</div>
+		<div class="scroll-ctn">
+			<div class="image-ctn">
+				{
+					images.map(img => (
+						<Image src={img.src} alt=""></Image>
+					))
+				}
 			</div>
 		</div>
 	</div>
@@ -50,7 +70,16 @@ import Spacer from '../Spacer.astro';
 		flex-direction: column;
 		width: 100%;
 		height: auto;
-		padding: 25vh 2rem 0 2rem;
+		padding-top: 25vh;
+	}
+
+	.hero {
+		background-color: black;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: auto;
+		padding: 2rem;
 		align-items: center;
 		gap: 5rem;
 
@@ -68,15 +97,19 @@ import Spacer from '../Spacer.astro';
 			gap: 2rem;
 			width: 100%;
 		}
-	}
-
-	.image-showcase {
-		.img-ctn {
-			img {
-				transform: scale(1.8);
-				opacity: 0.3;
-				transform-origin: bottom;
+		
+		.image-showcase {
+			.img-ctn {
+				img {
+					transform: scale(1.8);
+					opacity: 0.3;
+					transform-origin: bottom;
+				}
 			}
 		}
+	}
+
+	.advanced {
+
 	}
 </style>
