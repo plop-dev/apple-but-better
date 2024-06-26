@@ -2,16 +2,18 @@
 import { Image } from 'astro:assets';
 
 import heroImage from '@/assets/hero_camera.jpg';
+import Spacer from '../Spacer.astro';
 ---
 
 <div class='camera'>
 	<div class='ctn'>
 		<div class='header'>
 			<h1 class='font-bold'>Capture your wildest imagination.</h1>
-			<p class='font-normal text-xl text-foreground/70'>
+			<p class='font-semibold text-xl text-foreground/70'>
 				From dramatic framing flexibility to next-generation portraits, see what you can do with our most powerful iPhone camera system (kinda).
 			</p>
 		</div>
+		<Spacer spacingSize='20vh'></Spacer>
 		<div class='image-showcase'>
 			<div class='img-ctn'>
 				<Image src={heroImage} alt='' />
@@ -30,12 +32,12 @@ import heroImage from '@/assets/hero_camera.jpg';
 	const heroContainer = document.querySelector('.image-showcase');
 
 	gsap.to(heroImg, {
-		scale: 1,
+		scale: '1.2',
 		opacity: 1,
 		scrollTrigger: {
 			trigger: heroContainer,
-			start: 'top 80%',
-			end: 'bottom 80%',
+			start: 'top 90%',
+			end: 'bottom 120%',
 			scrub: 1,
 		},
 	});
@@ -73,6 +75,7 @@ import heroImage from '@/assets/hero_camera.jpg';
 			img {
 				transform: scale(1.8);
 				opacity: 0.3;
+				transform-origin: bottom;
 			}
 		}
 	}
