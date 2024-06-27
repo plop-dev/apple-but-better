@@ -5,11 +5,16 @@ import { Image } from 'astro:assets';
 import heroImage from '@/assets/hero_camera.jpg';
 import Spacer from '../Spacer.astro';
 
-const images = await Astro.glob('/src/assets/camera/*.jpg')
+let images = [];
+const imagesGlob = import.meta.glob<{ default: ImageMetadata }>('/src/assets/camera/*.jpg');
+for (const image in imagesGlob) {
+	const src = await imagesGlob[image]().then(res => res.default.src);
+	images.push(src);
+}
 ---
 
 <div class='camera'>
-	<div class="hero">
+	<div class='hero'>
 		<div class='ctn'>
 			<div class='header'>
 				<h1 class='font-bold'>Capture your wildest imagination.</h1>
@@ -17,7 +22,7 @@ const images = await Astro.glob('/src/assets/camera/*.jpg')
 					From dramatic framing flexibility to next-generation portraits, see what you can do with our most powerful iPhone camera system (kinda).
 				</p>
 			</div>
-			<Spacer spacingSize='20vh'></Spacer>
+			<Spacer spacingSize='20vh' />
 			<div class='image-showcase'>
 				<div class='img-ctn'>
 					<Image src={heroImage} alt='' />
@@ -26,17 +31,13 @@ const images = await Astro.glob('/src/assets/camera/*.jpg')
 		</div>
 	</div>
 
-	<div class="advanced">
-		<div class="header">
+	<div class='advanced'>
+		<div class='header'>
 			<h3>cool cameras</h3>
 		</div>
-		<div class="scroll-ctn">
-			<div class="image-ctn">
-				{
-					images.map(img => (
-						<Image src={img.src} alt=""></Image>
-					))
-				}
+		<div class='scroll-ctn'>
+			<div class='image-ctn'>
+				{images.map(imagePath => <img src={imagePath} alt='' />)}
 			</div>
 		</div>
 	</div>
@@ -97,7 +98,7 @@ const images = await Astro.glob('/src/assets/camera/*.jpg')
 			gap: 2rem;
 			width: 100%;
 		}
-		
+
 		.image-showcase {
 			.img-ctn {
 				img {
@@ -110,6 +111,12 @@ const images = await Astro.glob('/src/assets/camera/*.jpg')
 	}
 
 	.advanced {
-
+		.scroll-ctn {
+			.image-ctn {
+				display: flex;
+				flex-direction: row;
+				width: 653px;
+			}
+		}
 	}
 </style>
