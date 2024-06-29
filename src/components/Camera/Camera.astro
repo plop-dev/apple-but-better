@@ -98,19 +98,32 @@ for (const image in imagesGlob) {
 			scrub: 1,
 			pin: true,
 			pinSpacing: true,
+			snap: {
+				snapTo: 1 / 6,
+				duration: 0.1,
+				ease: 'power2.inOut',
+			},
 		},
 		ease: 'none',
 	});
 
 	window.addEventListener('scroll', event => {
-		advanced?.querySelectorAll('.image-ctn .lense').forEach((image, index) => {
-			if (ScrollTrigger.isInViewport(image, 1.4, true)) {
-				// console.log(image.querySelector('p')?.textContent, 'is in viewport');
-				image.classList.add('active');
-			} else {
-				image.classList.remove('active');
+		let retryCounter = 0;
+
+		const retryInterval = setInterval(() => {
+			if (retryCounter > 7) {
+				clearInterval(retryInterval);
 			}
-		});
+
+			advanced?.querySelectorAll('.image-ctn .lense').forEach((image, index) => {
+				if (ScrollTrigger.isInViewport(image, 1.4, true)) {
+					image.classList.add('active');
+				} else {
+					image.classList.remove('active');
+				}
+			});
+			retryCounter++;
+		}, 100);
 	});
 </script>
 
