@@ -5,11 +5,22 @@ import { Image } from 'astro:assets';
 import heroImage from '@/assets/hero_camera.jpg';
 import Spacer from '../Spacer.astro';
 
-let images = [];
+interface Image {
+	lens: string;
+	description: string;
+	src: string;
+}
+
+let images: Image[] = [];
 const imagesGlob = import.meta.glob<{ default: ImageMetadata }>('/src/assets/camera/*.jpg');
 for (const image in imagesGlob) {
-	const src = await imagesGlob[image]().then(res => res.default.src);
-	images.push(src);
+	const srcRAW = await imagesGlob[image]().then(res => res.default.src);
+
+	const src = srcRAW.split('/')[srcRAW.split('/').length - 1];
+	const lens = src.split(' ')[0].split('-')[1].split('?')[0].trim();
+	const description = src.split('x')[1].replace(',', '|').split('?')[0].replace('.jpg', '').trim();
+
+	images.push({ src: srcRAW, lens, description });
 }
 ---
 
@@ -38,11 +49,14 @@ for (const image in imagesGlob) {
 		<div class='scroll-ctn'>
 			<div class='image-ctn'>
 				{
-					images.map(imagePath => (
+					images.map(image => (
 						<div class='lense'>
-							<img src={imagePath} alt='' />
+							<img src={image.src} alt='' />
 							<div class='description'>
-								<p class='text-2xl font-semibold'>24mm</p>
+								<p class='text-xl font-semibold text-foreground/60'>
+									<span class='text-foreground'>{image.lens}</span>
+									{image.description}
+								</p>
 							</div>
 						</div>
 					))
@@ -76,15 +90,27 @@ for (const image in imagesGlob) {
 	const scrollCtn = document.querySelector('.scroll-ctn');
 
 	gsap.to(scrollCtn, {
-		transform: 'translateX(calc(calc(-653px * 7) + calc(653px / 2.5)))',
+		transform: 'translateX(calc(calc(-653px * 7) + calc(653px / 3.5)))',
 		scrollTrigger: {
 			trigger: advanced,
 			start: 'top 15%',
-			end: '+=6000',
+			end: '+=5000',
 			scrub: 1,
 			pin: true,
-			markers: true,
+			pinSpacing: true,
 		},
+		ease: 'none',
+	});
+
+	window.addEventListener('scroll', event => {
+		advanced?.querySelectorAll('.image-ctn .lense').forEach((image, index) => {
+			if (ScrollTrigger.isInViewport(image, 1.4, true)) {
+				// console.log(image.querySelector('p')?.textContent, 'is in viewport');
+				image.classList.add('active');
+			} else {
+				image.classList.remove('active');
+			}
+		});
 	});
 </script>
 
@@ -158,6 +184,11 @@ for (const image in imagesGlob) {
 				width: 653px;
 
 				.lense {
+					transition:
+						opacity 0.35s ease-in-out,
+						scale 0.6s ease-in-out;
+					opacity: 0.4;
+					scale: 0.9;
 					position: relative;
 					min-width: 653px;
 
@@ -170,6 +201,11 @@ for (const image in imagesGlob) {
 						bottom: -3rem;
 						left: 50%;
 						transform: translateX(-50%);
+					}
+
+					&.active {
+						opacity: 1;
+						scale: 1;
 					}
 				}
 			}
