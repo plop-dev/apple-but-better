@@ -45,7 +45,9 @@ for (const image in imagesGlob) {
 	<div class='advanced'>
 		<div class='header'>
 			<h2 class='text-foreground/70'>See the world with a <span class='text-foreground'>different perspective</span></h2>
-			<p>With the iPhone 15 Pro Max, you get a huge leap in camera performance. It's the most powerful Pro camera yet, and it's all in the lens.</p>
+			<p class='text-xl text-foreground/80'>
+				With the iPhone 15 Pro Max, you get a huge leap in camera performance. It's the most powerful Pro camera yet, and it's all in the lens.
+			</p>
 		</div>
 		<div class='scroll-ctn'>
 			<div class='image-ctn'>
@@ -183,7 +185,8 @@ for (const image in imagesGlob) {
 
 		.header {
 			display: flex;
-			justify-content: center;
+			flex-direction: column;
+			align-items: center;
 			gap: 2rem;
 			width: 100%;
 		}
