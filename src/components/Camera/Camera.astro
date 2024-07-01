@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 
 import heroImage from '@/assets/hero_camera.jpg';
 import Spacer from '../Spacer.astro';
+import cameraColour from '@/assets/camera/camera-colour.jpg';
 
 interface Image {
 	lens: string;
@@ -12,7 +13,7 @@ interface Image {
 }
 
 let images: Image[] = [];
-const imagesGlob = import.meta.glob<{ default: ImageMetadata }>('/src/assets/camera/*.jpg');
+const imagesGlob = import.meta.glob<{ default: ImageMetadata }>('/src/assets/camera/lens/*.jpg');
 for (const image in imagesGlob) {
 	const srcRAW = await imagesGlob[image]().then(res => res.default.src);
 
@@ -64,6 +65,28 @@ for (const image in imagesGlob) {
 						</div>
 					))
 				}
+			</div>
+		</div>
+	</div>
+
+	<Spacer spacingSize='20vh' />
+
+	<div class='colour'>
+		<div class='ctn'>
+			<div class='img-ctn'>
+				<Image src={cameraColour} alt='' />
+			</div>
+			<div class='info'>
+				<p class='text-xl text-foreground/70 font-semibold'>
+					The 48MP Main camera is more advanced than ever, capturing super-high-resolution photos with a <span class='text-foreground'
+						>new level of detail and colour</span
+					>.
+					<br /><br />
+					You'll see the improvements in your portraits. And now you no longer have to switch to Portrait mode. If your subject is a person, dog or cat,
+					iPhone automatically captures depth information. So you can choose to instantly <span class='text-foreground'>
+						your photo as a portrait</span
+					>, with an artful blur effect. Or later in the Photos app.
+				</p>
 			</div>
 		</div>
 	</div>
@@ -225,6 +248,34 @@ for (const image in imagesGlob) {
 						scale: 1;
 					}
 				}
+			}
+		}
+	}
+
+	.colour {
+		background-color: black;
+		width: 100%;
+		height: auto;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+
+		.ctn {
+			height: auto;
+			width: 40%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			gap: 5rem;
+
+			.img-ctn {
+				width: auto;
+				height: auto;
+			}
+
+			.info {
+				width: 50%;
 			}
 		}
 	}
