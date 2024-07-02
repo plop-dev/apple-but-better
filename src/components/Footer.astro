@@ -1,0 +1,113 @@
+---
+import Logo from "./Logo.astro";
+---
+
+<footer>
+    <div class="footer-ctn">
+        <div class="branding">
+            <div class="logo-ctn">
+                <Logo />
+                <h3 class="text-foreground/70">iPhone</h3>
+            </div>
+            <div class="links">
+                <div>
+                    <span class="text-sm text-foreground/30"
+                        >Explore iPhone</span
+                    >
+
+                    <a href="" class="text-2xl font-semibold"
+                        >Explore All iPhones</a
+                    >
+                    <a href="" class="text-2xl font-semibold">iPhone 15 Pro</a>
+                    <a href="" class="text-2xl font-semibold">iPhone 15</a>
+                    <a href="" class="text-2xl font-semibold">iPhone 14</a>
+                    <a href="" class="text-2xl font-semibold">iPhone 13</a>
+                    <a href="" class="text-2xl font-semibold">iPhone SE</a>
+                </div>
+
+                <div>
+                    <span class="text-sm text-foreground/30"
+                        >Shop iPhone</span
+                    >
+
+                    <a href="" class="text-md font-semibold"
+                        >Shop iPhone</a
+                    >
+                    <a href="" class="text-base font-semibold">iPhone Accessories</a>
+                    <a href="" class="text-base font-semibold">Apple Trade In</a>
+                    <a href="" class="text-base font-semibold">Carrier Deals at Apple</a>
+                    <a href="" class="text-base font-semibold">Financing</a>
+                </div>
+
+                <div>
+                    <span class="text-sm text-foreground/30"
+                        >Go Further</span
+                    >
+
+                    <a href="" class="text-md font-semibold"
+                        >iPhone Support</a
+                    >
+                    <a href="" class="text-base font-semibold">AppleCare+ for iPhone</a>
+                    <a href="" class="text-base font-semibold">iOS 18 Preview</a>
+                    <a href="" class="text-base font-semibold">Apple Intelligence</a>
+                    <a href="" class="text-base font-semibold">Apps by Apple</a>
+                    <a href="" class="text-base font-semibold">iPhone Privacy</a>
+                    <a href="" class="text-base font-semibold">iCloud+</a>
+                    <a href="" class="text-base font-semibold">Wallet, Pay, Card</a>
+                    <a href="" class="text-base font-semibold">Siri</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style is:global>
+    footer .logo {
+        top: 1px;
+    }
+</style>
+
+<style lang="scss">
+    footer {
+        padding: 4rem;
+        width: 100%;
+        height: 70vh;
+        display: flex;
+        justify-content: center;
+
+        .footer-ctn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            height: auto;
+        }
+
+        .branding {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            gap: 3rem;
+
+            .logo-ctn {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin: 3rem 0 4rem 0;
+            }
+
+            .links {
+                display: flex;
+                flex-direction: row;
+                gap: 4rem;
+
+                & > div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                    gap: 1rem;
+                }
+            }
+        }
+    }
+</style>
