@@ -6,9 +6,9 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-	output: 'server',
+	output: 'hybrid',
 	adapter: vercel({
-		webAnalytics: { enabled: true },
+		webAnalytics: { enabled: true }
 	}),
 	integrations: [
 		react(),
