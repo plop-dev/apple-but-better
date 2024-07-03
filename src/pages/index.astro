@@ -1,19 +1,8 @@
 ---
 import "@/styles/globals.css";
 
-import { Image } from "astro:assets";
-import { Button, buttonVariants } from "@/components/ui/button";
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
-} from "@/components/ui/carousel";
-
 import ButtonLink from "@/components/ui/ButtonLink.astro";
 import Logo from "@/components/Logo.astro";
-import Spacer from "@/components/Spacer.astro";
 
 import Highlights from "@/components/Highlights/Highlights.astro";
 import Models from "@/components/Models/Models.astro";
@@ -34,6 +23,9 @@ import Footer from "@/components/Footer.astro";
 		<title>iPhone 15 Pro - Apple+</title>
 	</head>
 	<body>
+		<div class="load">
+			<div class="ld-anim"></div>
+		</div>
 		<nav class="border-b border-border/20 bg-background/65">
 			<div class="nav-ctn">
 				<div class="nav-start">
@@ -104,11 +96,11 @@ import Footer from "@/components/Footer.astro";
 </html>
 
 <script>
+	//#region 3d model
 	import gsap from "gsap";
 	import { ScrollTrigger } from "gsap/ScrollTrigger";
 	import * as THREE from "three";
 	import WebGL from "three/addons/capabilities/WebGL.js";
-	import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 	import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 	gsap.registerPlugin(ScrollTrigger);
@@ -127,7 +119,6 @@ import Footer from "@/components/Footer.astro";
 	ca.setAttribute("data-id", "hero");
 
 	const loader = new GLTFLoader();
-	// const controls = new OrbitControls(camera, renderer.domElement);
 
 	loader.load(
 		"/models/iphone.glb",
@@ -163,17 +154,13 @@ import Footer from "@/components/Footer.astro";
 		},
 	);
 
-	const light = new THREE.PointLight(); // soft white light
+	const light = new THREE.PointLight();
 	light.intensity = 15;
 	light.position.set(0.5, 0.5, 0);
-	// const lightH = new THREE.PointLightHelper(light);
 	scene.add(light);
 
 	camera.position.set(0, 0, -0.2);
 	camera.lookAt(0, 0, 0);
-
-	// const hlp = new THREE.AxesHelper(1);
-	// scene.add(hlp);
 
 	window.addEventListener("resize", (event) => {
 		camera.aspect = innerWidth / innerHeight;
@@ -182,7 +169,6 @@ import Footer from "@/components/Footer.astro";
 	});
 	function animate() {
 		renderer.render(scene, camera);
-		// controls.update();
 	}
 
 	if (WebGL.isWebGLAvailable()) {
@@ -191,6 +177,23 @@ import Footer from "@/components/Footer.astro";
 		const warning = WebGL.getWebGLErrorMessage();
 		document.getElementById("container")?.appendChild(warning);
 	}
+	// #endregion
+</script>
+
+<script defer>
+	window.addEventListener("DOMContentLoaded", (event) => {
+		const load = document.querySelector<HTMLDivElement>(".ld-anim");
+		
+
+		if (load) {
+			load.style.background = 'linear-gradient(to right, white 100%, black 0%);'
+
+			// setTimeout(() => {
+			// 	load.style.opacity = "0";
+			// 	load.style.pointerEvents = "none";
+			// }, 3000);
+		}
+	});
 </script>
 
 <style lang="scss" is:global>
@@ -201,6 +204,28 @@ import Footer from "@/components/Footer.astro";
 
 	body {
 		overflow-x: hidden;
+	}
+
+	.load {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: black;
+		z-index: 1000;
+		overflow: hidden;
+
+		.ld-anim {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 120px;
+			height: 10px;
+			border-radius: 3rem;
+			background: linear-gradient(to right, white 0%, black 0%);
+		}
 	}
 
 	nav {
