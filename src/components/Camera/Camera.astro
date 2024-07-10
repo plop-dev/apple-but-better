@@ -12,17 +12,47 @@ interface Image {
 	src: string;
 }
 
+let imageData = [
+	{
+		lens: '0.5x',
+		description: 'Ultra Wide | Macro',
+	},
+	{
+		lens: '0.5x',
+		description: 'Ultra Wide | 13mm',
+	},
+	{
+		lens: '1x',
+		description: 'Main | 24mm',
+	},
+	{
+		lens: '1x',
+		description: 'Main | 28mm',
+	},
+	{
+		lens: '1x',
+		description: 'Main | 35mm',
+	},
+	{
+		lens: '2x',
+		description: 'Telephoto | 48mm',
+	},
+	{
+		lens: '5x',
+		description: 'Telephoto | 120mm',
+	},
+];
 let images: Image[] = [];
-const imagesGlob = import.meta.glob<{ default: ImageMetadata }>('/src/assets/camera/lens/*.jpg');
-for (const image in imagesGlob) {
-	const srcRAW = await imagesGlob[image]().then(res => res.default.src);
 
-	const src = srcRAW.split('/')[srcRAW.split('/').length - 1];
-	const lens = src.split(' ')[0].split('-')[1].split('?')[0].trim();
-	const description = src.split('x')[1].replace(',', '|').split('?')[0].replace('.jpg', '').trim();
+const imagesGlob = await Astro.glob('../../assets/camera/lens/*.jpg');
+imagesGlob.map((image, index) => {
+	const src = image.default.src;
 
-	images.push({ src: srcRAW, lens, description });
-}
+	const lens = imageData[index].lens;
+	const description = imageData[index].description.replace(',', '|');
+
+	images.push({ src, lens, description });
+});
 ---
 
 <div class='camera'>
@@ -91,7 +121,7 @@ for (const image in imagesGlob) {
 		</div>
 	</div>
 
-	<Spacer spacingSize='15vh'></Spacer>
+	<Spacer spacingSize='15vh' />
 </div>
 
 <script>
