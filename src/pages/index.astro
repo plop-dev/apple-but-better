@@ -178,20 +178,22 @@ import Footer from "@/components/Footer.astro";
 		document.getElementById("container")?.appendChild(warning);
 	}
 	// #endregion
-</script>
 
-<script defer>
 	window.addEventListener("DOMContentLoaded", (event) => {
 		const load = document.querySelector<HTMLDivElement>(".ld-anim");
-		
 
 		if (load) {
-			load.style.background = 'linear-gradient(to right, white 100%, black 0%);'
+			setTimeout(() => {
+				load.classList.add('loaded')
+			}, 100);
 
-			// setTimeout(() => {
-			// 	load.style.opacity = "0";
-			// 	load.style.pointerEvents = "none";
-			// }, 3000);
+			setTimeout(() => {
+				return null
+			}, 750);
+
+			setTimeout(() => {
+				if (load.parentElement) load.parentElement.classList.add('_hidden')
+			}, 3000);
 		}
 	});
 </script>
@@ -215,6 +217,12 @@ import Footer from "@/components/Footer.astro";
 		background-color: black;
 		z-index: 1000;
 		overflow: hidden;
+		transition: .75s ease-in-out;
+
+		&._hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
 
 		.ld-anim {
 			position: absolute;
@@ -224,7 +232,15 @@ import Footer from "@/components/Footer.astro";
 			width: 120px;
 			height: 10px;
 			border-radius: 3rem;
-			background: linear-gradient(to right, white 0%, black 0%);
+			background-image: linear-gradient(to left, white 50%, black 0%);
+			background-position: -0% 0;
+			background-size: 200% 100%;
+
+			transition: background-position 3s cubic-bezier(0.82,-0.02, 0.53, 0.72);
+
+			&.loaded {
+				background-position: -100% 0;
+			}
 		}
 	}
 
