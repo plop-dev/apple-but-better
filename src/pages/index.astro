@@ -1,83 +1,67 @@
 ---
-import "@/styles/globals.css";
+import '@/styles/globals.css';
 
-import ButtonLink from "@/components/ui/ButtonLink.astro";
-import Logo from "@/components/Logo.astro";
+import ButtonLink from '@/components/ui/ButtonLink.astro';
+import Logo from '@/components/Logo.astro';
 
-import Highlights from "@/components/Highlights/Highlights.astro";
-import Models from "@/components/Models/Models.astro";
-import Display from "@/components/Display/Display.astro";
-import Camera from "@/components/Camera/Camera.astro";
-import Footer from "@/components/Footer.astro";
+import Highlights from '@/components/Highlights/Highlights.astro';
+import Models from '@/components/Models/Models.astro';
+import Display from '@/components/Display/Display.astro';
+import Camera from '@/components/Camera/Camera.astro';
+import Footer from '@/components/Footer.astro';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang='en'>
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="robots" content="noindex, nofollow" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+		<meta charset='UTF-8' />
+		<meta name='description' content='Astro description' />
+		<meta name='viewport' content='width=device-width' />
+		<meta name='robots' content='noindex, nofollow' />
+		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+		<meta name='generator' content={Astro.generator} />
 		<title>iPhone 15 Pro - Apple+</title>
 	</head>
 	<body>
-		<div class="load">
-			<div class="ld-anim"></div>
+		<div class='load'>
+			<div class='ld-anim'></div>
 		</div>
-		<nav class="border-b border-border/20 bg-background/65">
-			<div class="nav-ctn">
-				<div class="nav-start">
-					<div class="nav-start-wr">
+		<nav class='border-b border-border/20 bg-background/65'>
+			<div class='nav-ctn'>
+				<div class='nav-start'>
+					<div class='nav-start-wr'>
 						<Logo />
 					</div>
 				</div>
-				<div class="nav-middle">
-					<div class="nav-middle-wr">
-						<div class="nav-item-wr">
-							<ButtonLink variant={"ghost"} href="/"
-								>Your crippling bank account</ButtonLink
-							>
+				<div class='nav-middle'>
+					<div class='nav-middle-wr'>
+						<div class='nav-item-wr'>
+							<ButtonLink variant={'ghost'} href='/#top'>Your crippling bank account</ButtonLink>
 						</div>
-						<div class="nav-item-wr">
-							<ButtonLink variant={"ghost"} href="/"
-								>iPhone 15 Pro</ButtonLink
-							>
+						<div class='nav-item-wr'>
+							<ButtonLink variant={'ghost'} href='/#top'>iPhone 15 Pro</ButtonLink>
 						</div>
-						<div class="nav-item-wr">
-							<ButtonLink variant={"ghost"} href="/"
-								>iCloud</ButtonLink
-							>
+						<div class='nav-item-wr'>
+							<ButtonLink variant={'ghost'} href='/#top'>iCloud</ButtonLink>
 						</div>
 					</div>
 				</div>
-				<div class="nav-end">
-					<div class="nav-end-wr">
-						<ButtonLink
-							variant={"ghost"}
-							href="https://www.apple.com/uk/shop/buy-iphone/iphone-15-pro"
-							>Buy Now</ButtonLink
-						>
+				<div class='nav-end'>
+					<div class='nav-end-wr'>
+						<ButtonLink variant={'ghost'} href='https://www.apple.com/uk/shop/buy-iphone/iphone-15-pro'>Buy Now</ButtonLink>
 					</div>
 				</div>
 			</div>
 		</nav>
 		<main>
-			<div class="front h-screen">
-				<div class="bg"></div>
-				<div class="title mt-[5vh] flex flex-col text-center">
-					<h5 class="opacity-80">The new iPhone 15 Pro</h5>
-					<h1 class="">Titanium. Meh.</h1>
-					<div class="price z-10">
-						<ButtonLink
-							variant={"secondary"}
-							href="https://www.apple.com/uk/shop/buy-iphone/iphone-15-pro"
-							>Buy</ButtonLink
-						>
-						<h5 class="font-semibold text-foreground/70">
-							Only half your salary
-						</h5>
+			<div class='front h-screen'>
+				<div class='bg'></div>
+				<div class='title mt-[5vh] flex flex-col text-center'>
+					<h5 class='opacity-80'>The new iPhone 15 Pro</h5>
+					<h1 class=''>Titanium. Meh.</h1>
+					<div class='price z-10'>
+						<ButtonLink variant={'secondary'} href='https://www.apple.com/uk/shop/buy-iphone/iphone-15-pro'>Buy</ButtonLink>
+						<h5 class='font-semibold text-foreground/70'>Only half your salary</h5>
 					</div>
 				</div>
 			</div>
@@ -97,43 +81,38 @@ import Footer from "@/components/Footer.astro";
 
 <script>
 	//#region 3d model
-	import gsap from "gsap";
-	import { ScrollTrigger } from "gsap/ScrollTrigger";
-	import * as THREE from "three";
-	import WebGL from "three/addons/capabilities/WebGL.js";
-	import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import * as THREE from 'three';
+	import WebGL from 'three/addons/capabilities/WebGL.js';
+	import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 	gsap.registerPlugin(ScrollTrigger);
 	const scene = new THREE.Scene();
-	const camera = new THREE.PerspectiveCamera(
-		75,
-		window.innerWidth / window.innerHeight,
-		0.1,
-		2000,
-	);
+	const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
 
 	const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 	renderer.setClearColor(0x000000, 0);
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	const ca = document.body.appendChild(renderer.domElement);
-	ca.setAttribute("data-id", "hero");
+	ca.setAttribute('data-id', 'hero');
 
 	const loader = new GLTFLoader();
 
 	loader.load(
-		"/models/iphone.glb",
+		'/models/iphone.glb',
 		function (gltf) {
 			const gltfScene = gltf.scene;
 			gltf.scene.position.y -= 0.01;
 
-			window.addEventListener("mousemove", (event) => {
+			window.addEventListener('mousemove', event => {
 				const xPos = event.clientX / innerWidth - 0.5;
 				const yPos = event.clientY / innerHeight - 0.5;
 
 				gsap.to(gltfScene.rotation, {
 					y: xPos * 1,
 					x: -yPos * 0.5,
-					ease: "power4.out",
+					ease: 'power4.out',
 				});
 			});
 
@@ -162,7 +141,7 @@ import Footer from "@/components/Footer.astro";
 	camera.position.set(0, 0, -0.2);
 	camera.lookAt(0, 0, 0);
 
-	window.addEventListener("resize", (event) => {
+	window.addEventListener('resize', event => {
 		camera.aspect = innerWidth / innerHeight;
 		camera.updateProjectionMatrix();
 		renderer.setSize(innerWidth, innerHeight);
@@ -175,30 +154,30 @@ import Footer from "@/components/Footer.astro";
 		renderer.setAnimationLoop(animate);
 	} else {
 		const warning = WebGL.getWebGLErrorMessage();
-		document.getElementById("container")?.appendChild(warning);
+		document.getElementById('container')?.appendChild(warning);
 	}
 	// #endregion
 
-	window.addEventListener("DOMContentLoaded", (event) => {
-		const load = document.querySelector<HTMLDivElement>(".ld-anim");
+	window.addEventListener('DOMContentLoaded', event => {
+		const load = document.querySelector<HTMLDivElement>('.ld-anim');
 
 		if (load) {
 			setTimeout(() => {
-				load.classList.add('loaded')
+				load.classList.add('loaded');
 			}, 100);
 
 			setTimeout(() => {
-				return null
+				return null;
 			}, 750);
 
 			setTimeout(() => {
-				if (load.parentElement) load.parentElement.classList.add('_hidden')
+				if (load.parentElement) load.parentElement.classList.add('_hidden');
 			}, 3000);
 		}
 	});
 </script>
 
-<style lang="scss" is:global>
+<style lang='scss' is:global>
 	* {
 		padding: 0;
 		margin: 0;
@@ -217,7 +196,7 @@ import Footer from "@/components/Footer.astro";
 		background-color: black;
 		z-index: 1000;
 		overflow: hidden;
-		transition: .75s ease-in-out;
+		transition: 0.75s ease-in-out;
 
 		&._hidden {
 			opacity: 0;
@@ -236,7 +215,7 @@ import Footer from "@/components/Footer.astro";
 			background-position: -0% 0;
 			background-size: 200% 100%;
 
-			transition: background-position 3s cubic-bezier(0.82,-0.02, 0.53, 0.72);
+			transition: background-position 3s cubic-bezier(0.82, -0.02, 0.53, 0.72);
 
 			&.loaded {
 				background-position: -100% 0;
@@ -325,7 +304,7 @@ import Footer from "@/components/Footer.astro";
 		}
 	}
 
-	canvas[data-id="hero"] {
+	canvas[data-id='hero'] {
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
