@@ -164,15 +164,11 @@ import Footer from '@/components/Footer.astro';
 		if (load) {
 			setTimeout(() => {
 				load.classList.add('loaded');
-			}, 100);
-
-			setTimeout(() => {
-				return null;
-			}, 750);
+			}, 50);
 
 			setTimeout(() => {
 				if (load.parentElement) load.parentElement.classList.add('_hidden');
-			}, 3000);
+			}, 3500);
 		}
 	});
 </script>
@@ -196,7 +192,7 @@ import Footer from '@/components/Footer.astro';
 		background-color: black;
 		z-index: 1000;
 		overflow: hidden;
-		transition: 0.75s ease-in-out;
+		transition: 0.5s ease-in-out;
 
 		&._hidden {
 			opacity: 0;
